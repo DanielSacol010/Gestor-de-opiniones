@@ -2,6 +2,8 @@ import { body } from "express-validator";
 import { emailExists, usernameExists } from "../helpers/db-validators.js";
 import { validateFields} from "./validate-fields.js";
 import { handleErrors } from "./handle-errors.js";
+import { validateJWT } from "./validate-jwt.js";
+import { hasRoles } from "./validate-roles.js";
 
 
 export const registerValidator = [
@@ -27,6 +29,16 @@ export const loginValidator = [
     body("email").optional().isEmail().withMessage("Invalid email format"),
     body("username").optional().isString().withMessage("Invalid username format"),
     body("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters long"),
+    validateFields,
+    handleErrors
+]
+
+export const updateProfileValidator = [
+    validateJWT,
+    hasRoles("ADMIN_ROLE", "CLIENT_ROLE"),
+    body("username").optional().isString().withMessage("Invalid username format"),
+    body("email").optional().isEmail().withMessage("Invalid email format"),
+    body("email").custom(emailExists),
     validateFields,
     handleErrors
 ]
