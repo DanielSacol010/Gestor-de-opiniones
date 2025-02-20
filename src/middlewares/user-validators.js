@@ -38,7 +38,7 @@ export const loginValidator = [
 
 export const updateProfileValidator = [
     validateJWT,
-    hasRoles("ADMIN_ROLE", "CLIENT_ROLE"),
+    hasRoles("ADMIN_ROLE", "USER_ROLE"),
     body("username").optional().isString().withMessage("Invalid username format"),
     body("email").optional().isEmail().withMessage("Invalid email format"),
     body("email").custom(emailExists),
