@@ -481,6 +481,55 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "create comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2N2IzZDgyMGJjNjY4Yzc0NGU3NzUyNzEiLCJpYXQiOjE3NDAxMDc4NjIsImV4cCI6MTc0MDExMTQ2Mn0.iG3pwzUjOgmRZnnSFuU8HJsEw1BM627rE4I0O6smsh0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"que bien\",\r\n    \"postId\": \"67b7c4f40843f217f6280f61\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/gestionDeComentarios/v1/comment/createComment",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"gestionDeComentarios",
+								"v1",
+								"comment",
+								"createComment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
