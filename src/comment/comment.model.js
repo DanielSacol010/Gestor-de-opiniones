@@ -9,7 +9,11 @@ const commentSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: "post",
         required: true
-    },  
+    },
+    status: {
+        type: Boolean,
+        default: true
+    }, 
     user: {
         type: Schema.Types.ObjectId,
         ref: "user",

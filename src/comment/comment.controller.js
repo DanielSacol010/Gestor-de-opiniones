@@ -73,7 +73,7 @@ export const deleteComment = async (req, res) => {
 
         const commentDeleted = await Comment.findByIdAndUpdate(id, { status: false }, { new: true })
         return res.status(200).json({
-            succes: false,
+            succes: true,
             message: "Post has been updated",
             comment: commentDeleted
         });

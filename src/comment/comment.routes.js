@@ -6,8 +6,8 @@ const router = Router()
 
 router.post("/createComment", createCommentValidator, createComment)
 
-router.patch("/updateComment", updateCommentValidator, updateComment)
+router.patch("/updateComment/:id", updateCommentValidator, updateComment)
 
-router.delete("/deleteComment", deleteCommentValidator, deleteComment)
+router.delete("/deleteComment/:id", deleteCommentValidator, deleteComment)
 
 export default router
