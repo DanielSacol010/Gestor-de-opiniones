@@ -1,5 +1,5 @@
 import Category from "./category.model.js";
-
+import Post from "../post/post.model.js";
 export const initializeDefaultCategories = async () => {
     try {
         const predefinedCategories = [
@@ -105,10 +105,8 @@ export const deleteCategory = async (req, res) => {
             });
         }
 
-        //await Post.updateMany({category: id}, {category: defaultCategory._id});
-
-        
-        await Category.findByIdAndUpdate(id, {status: false});
+        await Post.updateMany({categoryId: id}, {categoryId: defaultCategory._id});
+        await Category.findByIdAndDelete(id);
 
         res.status(200).json({
             success: true,

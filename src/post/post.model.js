@@ -1,6 +1,7 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
-const postSchema = Schema({
+const postSchema = mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -14,13 +15,18 @@ const postSchema = Schema({
         ref: 'user',
         required: true
     },
-    category: {
+    status: {
+        type: Boolean,
+        default: true
+    },
+    categoryId: {
         type: Schema.Types.ObjectId,
         ref: 'category',
         required: true
     }
 }, {
-    versionKey: false 
+    versionKey: false,
+    timestamps: true
 })
 
-export default model('post', postSchema)
+export default mongoose.model('post', postSchema)
