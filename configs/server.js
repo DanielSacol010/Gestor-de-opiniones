@@ -11,6 +11,8 @@ import userRoutes from "../src/user/user.routes.js"
 import categoryRoutes from "../src/category/category.routes.js"
 import postRoutes from "../src/post/post.routes.js"
 import commentRoutes from "../src/comment/comment.routes.js"
+import { swaggerDocs, swaggerUi } from "./swagger.js";
+
 const middlewares = (app) => {
     app.use(express.urlencoded({extended: false}))
     app.use(express.json())
@@ -26,6 +28,7 @@ const routes = (app) => {
     app.use("/gestionDeComentarios/v1/category", categoryRoutes)
     app.use("/gestionDeComentarios/v1/post", postRoutes)
     app.use("/gestionDeComentarios/v1/comment", commentRoutes)
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 }
 
 const conectarDB = async () =>{
