@@ -46,3 +46,13 @@ export const postIsActive = async (id = "") => {
     }
 }
 
+export const commentIsActive = async(id = " ") => {
+    const existe = await Comment.findById(id)
+    if (!existe) {
+        throw new Error("Comment not found")
+    }
+    if(existe.status === false){
+        throw new Error("The comment is deleted")
+    }
+}
+
