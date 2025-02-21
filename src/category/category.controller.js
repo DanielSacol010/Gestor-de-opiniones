@@ -1,29 +1,25 @@
 import Category from "./category.model.js";
 import Post from "../post/post.model.js";
-export const initializeDefaultCategories = async () => {
-    try {
-        const predefinedCategories = [
-            { name: "Default", description: "Default category" },
-            { name: "Tecnologia", description: "todo sobre tecnologia" },
-            { name: "Salud", description: "todo sobre salud" },
-            { name: "Educacion", description: "todo sobre educacion" },
-            { name: "Entretenimiento", description: "todo sobre entretenimiento" }
-        ];
 
-        for (const categoryData of predefinedCategories) {
-            const categoryExists = await Category.findOne({ name: categoryData.name });
-            if (!categoryExists) {
-                const category = new Category(categoryData);
-                await category.save();
-                console.log(`Category '${categoryData.name}' created successfully`);
-            }
+export const initializeDefaultCategorie = async () => {
+    try {
+        const defaultCategories = await Category.findOne({name: "Default"});
+        if(!defaultCategories){
+            const defaultCategory = await Category.create({
+                name: "Default",
+                description: "Default category"
+            })
+            const newDefaultCategory = new Category(defaultCategory);
+            await newDefaultCategory.save();
+            console.log("Default category created successfully");
+
         }
     } catch (err) {
-        console.log("Error initializing default categories", err);
+        console.log("Error initializing default categorie", err);
     }
 };
 
-initializeDefaultCategories();
+initializeDefaultCategorie();
 
 export const createCategory = async (req, res) => {
     try {

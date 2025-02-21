@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { createPostValidator, updatePostValidator, deletePostValidator } from "../middlewares/post-validators.js";
-import { createPost, updatePost, deletePost } from "./post.controller.js";
+import { createCommentValidator, updateCommentValidator,deleteCommentValidator } from "../middlewares/comment-validators.js";
+import { createComment, updateComment, deleteComment } from "./comment.controller.js";
 
 const router = Router()
 
 /**
  * @swagger
- * /createPost:
+ * /createComment:
  *   post:
- *     summary: Create a new post
- *     tags: [Post]
+ *     summary: Create a new comment
+ *     tags: [Comment]
  *     requestBody:
  *       required: true
  *       content:
@@ -17,25 +17,21 @@ const router = Router()
  *           schema:
  *             type: object
  *             properties:
- *               title:
- *                 type: string
- *                 description: The post's title
- *                 example: My First Post
  *               content:
  *                 type: string
- *                 description: The post's content
- *                 example: This is the content of my first post.
+ *                 description: The comment's content
+ *                 example: This is a comment.
+ *               postId:
+ *                 type: string
+ *                 description: The ID of the post the comment belongs to
+ *                 example: 60d0fe4f5311236168a109ca
  *               user:
  *                 type: string
- *                 description: The ID of the user creating the post
- *                 example: 60d0fe4f5311236168a109ca
- *               categoryId:
- *                 type: string
- *                 description: The ID of the category for the post
+ *                 description: The ID of the user creating the comment
  *                 example: 60d0fe4f5311236168a109cb
  *     responses:
  *       201:
- *         description: Post has been created
+ *         description: Comment has been created
  *         content:
  *           application/json:
  *             schema:
@@ -43,20 +39,17 @@ const router = Router()
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Post has been created
- *                 post:
+ *                   example: Comment has been created
+ *                 comment:
  *                   type: object
  *                   properties:
- *                     title:
- *                       type: string
- *                       example: My First Post
  *                     content:
  *                       type: string
- *                       example: This is the content of my first post.
- *                     user:
+ *                       example: This is a comment.
+ *                     postId:
  *                       type: string
  *                       example: 60d0fe4f5311236168a109ca
- *                     categoryId:
+ *                     user:
  *                       type: string
  *                       example: 60d0fe4f5311236168a109cb
  *       400:
@@ -71,7 +64,7 @@ const router = Router()
  *                   example: Invalid input
  *                 error:
  *                   type: string
- *                   example: Title is required
+ *                   example: Content is required
  *       500:
  *         description: Server error
  *         content:
@@ -89,17 +82,17 @@ const router = Router()
 
 /**
  * @swagger
- * /updatePost/{id}:
- *   put:
- *     summary: Update an existing post
- *     tags: [Post]
+ * /updateComment/{id}:
+ *   patch:
+ *     summary: Update an existing comment
+ *     tags: [Comment]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The ID of the post to update
+ *         description: The ID of the comment to update
  *     requestBody:
  *       required: true
  *       content:
@@ -107,17 +100,13 @@ const router = Router()
  *           schema:
  *             type: object
  *             properties:
- *               title:
- *                 type: string
- *                 description: The post's title
- *                 example: Updated Post Title
  *               content:
  *                 type: string
- *                 description: The post's content
- *                 example: This is the updated content of the post.
+ *                 description: The comment's content
+ *                 example: This is an updated comment.
  *     responses:
  *       200:
- *         description: Post has been updated
+ *         description: Comment has been updated
  *         content:
  *           application/json:
  *             schema:
@@ -125,16 +114,13 @@ const router = Router()
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Post has been updated
- *                 post:
+ *                   example: Comment has been updated
+ *                 comment:
  *                   type: object
  *                   properties:
- *                     title:
- *                       type: string
- *                       example: Updated Post Title
  *                     content:
  *                       type: string
- *                       example: This is the updated content of the post.
+ *                       example: This is an updated comment.
  *       400:
  *         description: Invalid input
  *         content:
@@ -147,9 +133,9 @@ const router = Router()
  *                   example: Invalid input
  *                 error:
  *                   type: string
- *                   example: Title is required
+ *                   example: Content is required
  *       404:
- *         description: Post not found
+ *         description: Comment not found
  *         content:
  *           application/json:
  *             schema:
@@ -157,7 +143,7 @@ const router = Router()
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Post not found
+ *                   example: Comment not found
  *       500:
  *         description: Server error
  *         content:
@@ -175,20 +161,20 @@ const router = Router()
 
 /**
  * @swagger
- * /deletePost/{id}:
+ * /deleteComment/{id}:
  *   delete:
- *     summary: Delete an existing post
- *     tags: [Post]
+ *     summary: Delete an existing comment
+ *     tags: [Comment]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The ID of the post to delete
+ *         description: The ID of the comment to delete
  *     responses:
  *       200:
- *         description: Post has been deleted
+ *         description: Comment has been deleted
  *         content:
  *           application/json:
  *             schema:
@@ -196,9 +182,9 @@ const router = Router()
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Post has been deleted
+ *                   example: Comment has been deleted
  *       404:
- *         description: Post not found
+ *         description: Comment not found
  *         content:
  *           application/json:
  *             schema:
@@ -206,7 +192,7 @@ const router = Router()
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Post not found
+ *                   example: Comment not found
  *       500:
  *         description: Server error
  *         content:
@@ -222,10 +208,10 @@ const router = Router()
  *                   example: Internal server error
  */
 
-router.post("/createPost", createPostValidator, createPost)
+router.post("/createComment", createCommentValidator, createComment)
 
-router.put("/updatePost/:id", updatePostValidator, updatePost)
+router.patch("/updateComment/:id", updateCommentValidator, updateComment)
 
-router.delete("/deletePost/:id", deletePostValidator, deletePost)
+router.delete("/deleteComment/:id", deleteCommentValidator, deleteComment)
 
 export default router
