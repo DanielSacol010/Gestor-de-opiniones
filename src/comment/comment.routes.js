@@ -10,6 +10,8 @@ const router = Router()
  *   post:
  *     summary: Create a new comment
  *     tags: [Comment]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -25,10 +27,6 @@ const router = Router()
  *                 type: string
  *                 description: The ID of the post the comment belongs to
  *                 example: 60d0fe4f5311236168a109ca
- *               user:
- *                 type: string
- *                 description: The ID of the user creating the comment
- *                 example: 60d0fe4f5311236168a109cb
  *     responses:
  *       201:
  *         description: Comment has been created
@@ -49,9 +47,6 @@ const router = Router()
  *                     postId:
  *                       type: string
  *                       example: 60d0fe4f5311236168a109ca
- *                     user:
- *                       type: string
- *                       example: 60d0fe4f5311236168a109cb
  *       400:
  *         description: Invalid input
  *         content:
@@ -65,6 +60,16 @@ const router = Router()
  *                 error:
  *                   type: string
  *                   example: Content is required
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       500:
  *         description: Server error
  *         content:
@@ -86,6 +91,8 @@ const router = Router()
  *   patch:
  *     summary: Update an existing comment
  *     tags: [Comment]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -134,6 +141,26 @@ const router = Router()
  *                 error:
  *                   type: string
  *                   example: Content is required
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: You are not authorized to edit this comment
  *       404:
  *         description: Comment not found
  *         content:
@@ -165,6 +192,8 @@ const router = Router()
  *   delete:
  *     summary: Delete an existing comment
  *     tags: [Comment]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -183,6 +212,26 @@ const router = Router()
  *                 message:
  *                   type: string
  *                   example: Comment has been deleted
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: You are not authorized to delete this comment
  *       404:
  *         description: Comment not found
  *         content:

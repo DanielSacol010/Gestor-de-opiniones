@@ -10,6 +10,8 @@ const router = Router()
  *   post:
  *     summary: Create a new post
  *     tags: [Post]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -25,10 +27,6 @@ const router = Router()
  *                 type: string
  *                 description: The post's content
  *                 example: This is the content of my first post.
- *               user:
- *                 type: string
- *                 description: The ID of the user creating the post
- *                 example: 60d0fe4f5311236168a109ca
  *               categoryId:
  *                 type: string
  *                 description: The ID of the category for the post
@@ -72,6 +70,16 @@ const router = Router()
  *                 error:
  *                   type: string
  *                   example: Title is required
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       500:
  *         description: Server error
  *         content:
@@ -93,6 +101,8 @@ const router = Router()
  *   put:
  *     summary: Update an existing post
  *     tags: [Post]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -148,6 +158,26 @@ const router = Router()
  *                 error:
  *                   type: string
  *                   example: Title is required
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: You are not authorized to edit this post
  *       404:
  *         description: Post not found
  *         content:
@@ -179,6 +209,8 @@ const router = Router()
  *   delete:
  *     summary: Delete an existing post
  *     tags: [Post]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -197,6 +229,26 @@ const router = Router()
  *                 message:
  *                   type: string
  *                   example: Post has been deleted
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: You are not authorized to delete this post
  *       404:
  *         description: Post not found
  *         content:

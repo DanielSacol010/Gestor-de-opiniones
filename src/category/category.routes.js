@@ -9,6 +9,8 @@ const router = Router();
  *   post:
  *     summary: Create a new category
  *     tags: [Category]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -60,6 +62,19 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       500:
  *         description: Server error
  *         content:
@@ -73,8 +88,6 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Error creating category
- *     security:
- *       - bearerAuth: []
  *     x-roles:
  *       - ADMIN_ROLE
  */
@@ -91,6 +104,8 @@ router.post(
  *   get:
  *     summary: Get all categories
  *     tags: [Category]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: limit
@@ -132,6 +147,19 @@ router.post(
  *                       description:
  *                         type: string
  *                         example: All about technology
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       500:
  *         description: Server error
  *         content:
@@ -145,8 +173,6 @@ router.post(
  *                 message:
  *                   type: string
  *                   example: Error getting categories
- *     security:
- *       - bearerAuth: []
  *     x-roles:
  *       - ADMIN_ROLE
  */
@@ -163,6 +189,8 @@ router.get(
  *   put:
  *     summary: Update an existing category
  *     tags: [Category]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -221,6 +249,19 @@ router.get(
  *                 message:
  *                   type: string
  *                   example: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       404:
  *         description: Category not found
  *         content:
@@ -247,10 +288,6 @@ router.get(
  *                 message:
  *                   type: string
  *                   example: Error updating category
- *     security:
- *       - bearerAuth: []
- *     x-roles:
- *       - ADMIN_ROLE
  */
 
 router.put(
@@ -265,6 +302,8 @@ router.put(
  *   delete:
  *     summary: Delete an existing category
  *     tags: [Category]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -286,6 +325,19 @@ router.put(
  *                 message:
  *                   type: string
  *                   example: Category deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       404:
  *         description: Category not found
  *         content:
@@ -312,10 +364,6 @@ router.put(
  *                 message:
  *                   type: string
  *                   example: Error deleting category
- *     security:
- *       - bearerAuth: []
- *     x-roles:
- *       - ADMIN_ROLE
  */
 
 router.delete(

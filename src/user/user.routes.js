@@ -11,6 +11,8 @@ const router = Router();
  *   put:
  *     summary: Update user profile
  *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -56,6 +58,16 @@ const router = Router();
  *                 message:
  *                   type: string
  *                   example: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       500:
  *         description: Server error
  *         content:
@@ -69,8 +81,6 @@ const router = Router();
  *                 error:
  *                   type: string
  *                   example: Internal server error
- *     security:
- *       - bearerAuth: []
  *     x-roles:
  *       - USER_ROLE
  *       - ADMIN_ROLE
@@ -88,6 +98,8 @@ router.put(
  *   patch:
  *     summary: Update user profile picture
  *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -132,6 +144,19 @@ router.put(
  *                 msg:
  *                   type: string
  *                   example: No user profile picture provided
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 msg:
+ *                   type: string
+ *                   example: No token provided in the request
  *       500:
  *         description: Error updating user profile picture
  *         content:
@@ -148,8 +173,6 @@ router.put(
  *                 error:
  *                   type: string
  *                   example: Internal server error
- *     security:
- *       - bearerAuth: []
  *     x-roles:
  *       - USER_ROLE
  *       - ADMIN_ROLE
@@ -168,6 +191,8 @@ router.patch(
  *   patch:
  *     summary: Update user password
  *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -210,6 +235,19 @@ router.patch(
  *                 message:
  *                   type: string
  *                   example: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: No token provided in the request
  *       500:
  *         description: Error updating password
  *         content:
@@ -226,8 +264,6 @@ router.patch(
  *                 error:
  *                   type: string
  *                   example: Internal server error
- *     security:
- *       - bearerAuth: []
  *     x-roles:
  *       - USER_ROLE
  *       - ADMIN_ROLE

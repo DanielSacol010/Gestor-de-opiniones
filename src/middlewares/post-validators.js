@@ -22,7 +22,7 @@ export const updatePostValidator = [
     param('id').isMongoId().withMessage('Invalid post ID'),
     body('title').optional(),
     body('content').optional(),
-    body('categoryId').optional().isMongoId().withMessage('Invalid category ID'),
+    body('categoryId').optional().isMongoId().withMessage('Invalid category ID').custom(categoryExists),
     validateFields,
     handleErrors
 ]
